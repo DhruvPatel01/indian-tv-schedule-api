@@ -1,3 +1,8 @@
+"""
+This module helps to create dictionary of channel name and it's code
+on burpp.com
+"""
+
 from urllib import request
 import pickle
 from bs4 import BeautifulSoup
@@ -70,5 +75,3 @@ def create_dict(toFile=True, filename='list'):
         file2.close()
     else:
         return dct
-
-print(create_dict(False))

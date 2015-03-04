@@ -1,3 +1,4 @@
 .idea/
 list.dict
 list
+__pycache__/
