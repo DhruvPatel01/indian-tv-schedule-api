@@ -3,3 +3,4 @@ list.dict
 list
 __pycache__/
 *.pyc
+python2/

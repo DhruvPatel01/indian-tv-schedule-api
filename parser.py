@@ -128,7 +128,7 @@ def parse_channel_page(url, show_meta=True, show_details=False, json_out=False, 
         if td_list[0].b.sup.string.lower() == 'pm' and h != 12:
             h += 12
         dct['showTime'] = "{0:02}:{1:02}".format(h, m)
-        dct['showTitle'] = td_list[2].a['title']
+        dct['showTitle'] = ' '.join(td_list[2].a.get_text().strip().split())
         dct['showThumb'] = td_list[1].a.img['src']
 
         if show_meta or show_details:
