@@ -1,11 +1,14 @@
-#Dependencies#
+#Dependencies
 + Python 3
 + bs4 (BeautifulSoup4)
-To install it use `pip install bs4`
+  + To install it use `pip install bs4`
++ python-lxml, libxml2
+  + if you face problem downloding lxml replace `lxml` with `html.parser` in source code.
++ werkzeug (if you want to use it as server)
 
-#Usage#
+#Usage
 
-`python3 main.py [-h] [--create] [-c CHANNEL] [-d DATE] [-m] [-D] [-i INDENT]`
+`python3 main.py [-h] [--create] [-c CHANNEL] [-d DATE] [-m] [-D] [-i INDENT] [--server]`
 
 ##optional arguments:
 
@@ -28,3 +31,15 @@ Include meta data of show like genre,language, type in output.
 
 `-i INDENT`, `--indent INDENT`
 Prettify output json with i indents. use -1 to compact
+
+##Using as server
+To use as server use `--server` flag. The default port is 8080.
+Specify custom port using `--port PORT`.
+
+To get json output send GET request to `localhost:port` and use same query as you would use in command line.
+
+e.g.
+
+`localhost:8080/?channel=hbo&meta=true&date=2015-05-05&indent=4`
+
+As server defalut value for indent is  `None`, this is done to reduce size of output.

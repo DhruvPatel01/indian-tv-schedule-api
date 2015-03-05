@@ -1,6 +1,8 @@
 import sys
 import argparse
+import parser
 from datetime import date
+import datetime
 
 if __name__ == '__main__':
     aparser = argparse.ArgumentParser()
@@ -12,8 +14,11 @@ if __name__ == '__main__':
     aparser.add_argument('-D', '--details', help='Include extra details of show in output.',
                          action='store_true')
     aparser.add_argument('-i', '--indent', help="Prettify output json with i indents. use -1 to compact",type=int,default=2)
+    aparser.add_argument('--server', help="Start server", action='store_true')
+    aparser.add_argument('--port', help="port address to run server on. default 8080.", type=int)
+
     args = aparser.parse_args()
-    if not args.create and not args.channel:
+    if not args.create and not args.channel and not args.server:
         aparser.error('Either --channel or --create is necessary')
     if args.channel and args.create:
         aparser.error('Use  only --channel or --create')
@@ -35,4 +40,20 @@ if __name__ == '__main__':
                 raise ValueError('Invalid date')
         else:
             date = date.today()
-        print(parser.get_show_list(args.channel, date, args.meta, args.details, indent))
+        show_list = parser.get_show_list(args.channel, date, args.meta, args.details, indent)
+        if show_list:
+            print(show_list)
+        else:
+            print('Channel name {0} seems wrong.'.format(args.channel))
+        exit()
+
+    if args.server:
+        from werkzeug.serving import run_simple
+        import webapp
+        app = webapp.WebApp()
+        if args.port:
+            port = args.port
+        else:
+            port = 8080
+
+        run_simple('localhost', port,app, use_debugger=True, use_reloader=True)
