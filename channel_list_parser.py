@@ -2,11 +2,13 @@
 This module helps to create dictionary of channel name and it's code
 on burpp.com
 """
-
-from urllib import request
 import pickle
+try:
+    from urllib import urlopen
+except ImportError:
+    from urllib.request import urlopen
+
 from bs4 import BeautifulSoup
-from bs4 import SoupStrainer
 
 def create_list(toFile=True, filename='list', categorize=False):
     """
@@ -20,10 +22,13 @@ def create_list(toFile=True, filename='list', categorize=False):
     if toFile:
         file = open(filename, 'w')
     else:
-        import io
-        file = io.StringIO()
+        try:
+            import StringIO as dh_io
+        except ImportError:
+            import io as dh_io
+        file = dh_io.StringIO()
 
-    html = request.urlopen('http://tv.burrp.com/channels.html').read()
+    html = urlopen('http://tv.burrp.com/channels.html').read()
     soup = BeautifulSoup(html, 'lxml')
 
     fieldsets = soup.select('div.main > fieldset')
@@ -57,8 +62,11 @@ def create_dict(toFile=True, filename='list'):
     if toFile:
         file = open(filename, 'r')
     else:
-        import io
-        file = io.StringIO(create_list(False))
+        try:
+            import StringIO as dh_io
+        except ImportError:
+            import io as dh_io
+        file = dh_io.StringIO(create_list(False))
 
     line = file.readline()
     dct = {}
@@ -75,3 +83,6 @@ def create_dict(toFile=True, filename='list'):
         file2.close()
     else:
         return dct
+
+if __name__ == '__main__':
+    print(create_list(False,None,True))

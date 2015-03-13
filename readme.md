@@ -1,5 +1,5 @@
 #Dependencies
-+ Python 3
++ Python 2 or 3
 + bs4 (BeautifulSoup4)
   + To install it use `pip install bs4`
 + python-lxml, libxml2
@@ -43,3 +43,6 @@ e.g.
 `localhost:8080/?channel=hbo&meta=true&date=2015-05-05&indent=4`
 
 As server defalut value for indent is  `None`, this is done to reduce size of output.
+
+#Warning
+This script parses data from third party website. I didn't found copy right notice or usage policy on their website. Using this api in commercial project should be avoided.

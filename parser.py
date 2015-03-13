@@ -3,12 +3,21 @@ this module contains main functions to parse web pages given url
 """
 
 from datetime import date
-from urllib import request
+
+try:
+    from urllib import urlopen
+except ImportError:
+    from urllib.request import urlopen
+
 from bs4 import BeautifulSoup
 from bs4 import SoupStrainer
 import json
 import pickle
-import urllib.parse
+
+try:
+    from urllib import quote as url_quote
+except ImportError:
+    from urllib.parse import quote as url_quote
 
 def _to_camel_case(str):
     if str[-1] == ':':
@@ -54,7 +63,7 @@ def parse_show_page(url, show_meta=True, show_details=False, json_out=False, ind
     :return: output as json or dictionary indexed by meta and details
     """
     out = {}
-    html = request.urlopen(url).read()
+    html = urlopen(url).read()
     if not show_details:
         strainer = SoupStrainer('td', {'class':['showDetails']})
     else:
@@ -109,7 +118,7 @@ def parse_channel_page(url, show_meta=True, show_details=False, json_out=False, 
     :param indent: +ve value to prettify output json
     :return: json string or dictionary
     """
-    html = request.urlopen(url).read()
+    html = urlopen(url).read()
 
     strainer = SoupStrainer('table', {'class':'result'})
     table = BeautifulSoup(html,'lxml', parse_only=strainer)
@@ -141,7 +150,7 @@ def parse_channel_page(url, show_meta=True, show_details=False, json_out=False, 
                 dct.update(details[dct['showTitle']])
                 shd = False
             if shm or shd:
-                show_url = urllib.parse.quote(td_list[2].a['href'], '/:')
+                show_url = url_quote(td_list[2].a['href'], '/:')
                 meta_details = parse_show_page(show_url, show_meta, show_details)
                 if shm:
                     dct.update(meta_details['meta'])
@@ -184,3 +193,5 @@ def get_show_list(channel, date=date.today(), show_meta=False, show_details=Fals
     show_list['channel'] = channel
     return json.dumps(show_list, sort_keys=True, indent=indent, ensure_ascii=False)
 
+if __name__ == '__main__':
+    print(get_show_list('star-movies', indent=4))
