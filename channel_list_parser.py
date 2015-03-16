@@ -8,7 +8,7 @@ try:
 except ImportError:
     from urllib.request import urlopen
 
-from bs4 import BeautifulSoup
+import lxml.html
 
 def create_list(toFile=True, filename='list', categorize=False):
     """
@@ -28,17 +28,17 @@ def create_list(toFile=True, filename='list', categorize=False):
             import io as dh_io
         file = dh_io.StringIO()
 
-    html = urlopen('http://tv.burrp.com/channels.html').read()
-    soup = BeautifulSoup(html, 'lxml')
+    tree = lxml.html.parse('http://tv.burrp.com/channels.html')
+    root = tree.getroot()
 
-    fieldsets = soup.select('div.main > fieldset')
+    fieldsets = tree.findall("//div[@class='main']/fieldset")
     for fs in fieldsets:
         if categorize:
-            title = fs.legend.string.strip()
+            title = fs.find('legend').text.strip()
             file.write(title+'\n')
-        a_lst = fs.find_all('a')
+        a_lst = fs.findall('a')
         for a in a_lst:
-            array = a['href'].split('/')
+            array = a.get('href').split('/')
             file.write(array[-3]+':'+array[-2]+'\n')
         if categorize:
             file.write('\n\n')
