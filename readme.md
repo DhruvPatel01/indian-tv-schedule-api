@@ -1,3 +1,9 @@
+Indian tv schedule api is as the name(!!) suggests is an api written in
+Python than given channel name and optional date outputs the list of shows with
+optional metadata and show description in JSON format.
+
+Yeah its definitely open source.
+
 #Dependencies
 + Python 2 or 3
 + bs4 (BeautifulSoup4)
