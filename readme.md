@@ -1,4 +1,4 @@
-Indian tv schedule api is as the name(!!) suggests is an api written in
+Indian tv schedule api as the name(!!) suggests is an api written in
 Python than given channel name and optional date outputs the list of shows with
 optional metadata and show description in JSON format.
 
@@ -51,4 +51,4 @@ e.g.
 As server defalut value for indent is  `None`, this is done to reduce size of output.
 
 #Warning
-This script parses data from third party website. I didn't found copy right notice or usage policy on their website. Using this api in commercial project should be avoided.
+This script parses data from third party website. I didn't find copyright notice or usage policy on their website. Using this api in commercial project should be avoided.
