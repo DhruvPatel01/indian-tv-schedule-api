@@ -4,7 +4,7 @@ optional metadata and show description in JSON format.
 
 Yeah its definitely open source.
 
-#Dependencies
+# Dependencies
 + Python 2 or 3
 + bs4 (BeautifulSoup4)
   + To install it use `pip install bs4`
@@ -12,11 +12,11 @@ Yeah its definitely open source.
   + if you face problem downloding lxml replace `lxml` with `html.parser` in source code.
 + werkzeug (if you want to use it as server)
 
-#Usage
+# Usage
 
 `python3 main.py [-h] [--create] [-c CHANNEL] [-d DATE] [-m] [-D] [-i INDENT] [--server]`
 
-##optional arguments:
+## optional arguments:
 
 `-h`, `--help`
 show this help message and exit
@@ -38,7 +38,7 @@ Include meta data of show like genre,language, type in output.
 `-i INDENT`, `--indent INDENT`
 Prettify output json with i indents. use -1 to compact
 
-##Using as server
+## Using as server
 To use as server use `--server` flag. The default port is 8080.
 Specify custom port using `--port PORT`.
 
@@ -50,5 +50,5 @@ e.g.
 
 As server defalut value for indent is  `None`, this is done to reduce size of output.
 
-#Warning
+# Warning
 This script parses data from third party website. I didn't find copyright notice or usage policy on their website. Using this api in commercial project should be avoided.
