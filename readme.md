@@ -1,3 +1,6 @@
+# Update
+This code no longer works. The website we used to scrape is down from long time it seems. I will keep monitoring it in case goes live, but I do not think that is going to happen. Till then this repo will archived. If you continue your journey in search of other API, and succeed, please drop me an email so that I can mention that API here. Best of Luck.
+
 Indian tv schedule api as the name(!!) suggests is an api written in
 Python than given channel name and optional date outputs the list of shows with
 optional metadata and show description in JSON format.
